@@ -1,13 +1,13 @@
 import React, { useState, useMemo, useRef } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  FlatList, 
-  SafeAreaView, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
   Animated,
   StatusBar,
-  Platform 
+  Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -29,18 +29,20 @@ export default function EventsScreen() {
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const categories = useMemo(() => {
-    const cats = Array.from(new Set(mockEvents.map(event => event.category)));
+    const cats = Array.from(new Set(mockEvents.map((event) => event.category)));
     return cats.sort();
   }, []);
 
   const filteredEvents = useMemo(() => {
-    return mockEvents.filter(event => {
-      const matchesSearch = event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           event.category.toLowerCase().includes(searchQuery.toLowerCase());
-      
-      const matchesCategory = selectedCategory === null || event.category === selectedCategory;
-      
+    return mockEvents.filter((event) => {
+      const matchesSearch =
+        event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.category.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesCategory =
+        selectedCategory === null || event.category === selectedCategory;
+
       return matchesSearch && matchesCategory;
     });
   }, [searchQuery, selectedCategory]);
@@ -88,15 +90,19 @@ export default function EventsScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
-      
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="transparent"
+      />
+
       {/* Animated Status Bar Background */}
-      <Animated.View 
+      <Animated.View
         style={[
           styles.statusBarBackground,
           {
             opacity: statusBarOpacity,
-          }
+          },
         ]}
       />
 
@@ -110,13 +116,12 @@ export default function EventsScreen() {
           },
         ]}
       >
-        <LinearGradient
-          colors={['#6366F1', '#8B5CF6']}
-          style={styles.header}
-        >
+        <LinearGradient colors={['#6366F1', '#8B5CF6']} style={styles.header}>
           <View style={styles.headerContent}>
             <Text style={styles.headerTitle}>Discover Events</Text>
-            <Text style={styles.headerSubtitle}>Find amazing experiences near you</Text>
+            <Text style={styles.headerSubtitle}>
+              Find amazing experiences near you
+            </Text>
           </View>
         </LinearGradient>
       </Animated.View>
@@ -136,7 +141,7 @@ export default function EventsScreen() {
           style={styles.stickyHeaderGradient}
         >
           <View style={styles.stickyHeaderContent}>
-            <SearchBar 
+            <SearchBar
               value={searchQuery}
               onChangeText={setSearchQuery}
               placeholder="Search events..."
@@ -158,7 +163,7 @@ export default function EventsScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[
           styles.listContainer,
-          { paddingTop: HEADER_HEIGHT + STICKY_HEADER_HEIGHT }
+          { paddingTop: HEADER_HEIGHT },
         ]}
         scrollEventThrottle={16}
         onScroll={Animated.event(
@@ -167,7 +172,7 @@ export default function EventsScreen() {
         )}
         ListHeaderComponent={
           <View style={styles.listHeader}>
-            <SearchBar 
+            <SearchBar
               value={searchQuery}
               onChangeText={setSearchQuery}
               placeholder="Search events..."
@@ -208,7 +213,8 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 50 : (StatusBar.currentHeight || 24) + 10,
+    paddingTop:
+      Platform.OS === 'ios' ? 50 : (StatusBar.currentHeight || 24) + 10,
   },
   headerContent: {
     flex: 1,
@@ -237,7 +243,8 @@ const styles = StyleSheet.create({
   },
   stickyHeaderGradient: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 50 : (StatusBar.currentHeight || 24) + 5,
+    paddingTop:
+      Platform.OS === 'ios' ? 50 : (StatusBar.currentHeight || 24) + 5,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

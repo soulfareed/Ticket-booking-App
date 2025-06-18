@@ -24,16 +24,14 @@ export default function BookingsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={['#EC4899', '#8B5CF6']}
-        style={styles.header}
-      >
+      <LinearGradient colors={['#EC4899', '#8B5CF6']} style={styles.header}>
         <Text style={styles.headerTitle}>My Tickets</Text>
         <Text style={styles.headerSubtitle}>
-          {getTotalBookings()} ticket{getTotalBookings() !== 1 ? 's' : ''} booked
+          {getTotalBookings()} ticket{getTotalBookings() !== 1 ? 's' : ''}{' '}
+          booked
         </Text>
       </LinearGradient>
-      
+
       <View style={styles.content}>
         {state.bookings.length === 0 ? (
           <EmptyState />
@@ -47,7 +45,7 @@ export default function BookingsScreen() {
           />
         )}
       </View>
-      
+
       {state.error && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{state.error}</Text>
