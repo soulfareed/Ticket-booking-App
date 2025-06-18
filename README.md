@@ -76,6 +76,7 @@ app/
 index.tsx # Home screen
 bookings.tsx # My Tickets screen
 event/[id].tsx # Event Detail screen
+![Ticke booking app img](https://github.com/user-attachments/assets/62dd4e3d-01dd-42a2-9412-ad44e92ea7f9)
 
 components/
 EventCard.tsx
